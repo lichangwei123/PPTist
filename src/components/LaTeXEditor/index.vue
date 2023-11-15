@@ -3,7 +3,7 @@
     <div class="container">
       <div class="left">
         <div class="input-area">
-          <TextArea v-model:value="latex" placeholder="输入 LaTeX 公式" ref="textAreaRef"/>
+          <TextArea v-model:value="latex" placeholder="输入 LaTeX 公式" ref="textAreaRef" />
         </div>
         <div class="preview">
           <div class="placeholder" v-if="!latex">公式预览</div>
@@ -39,7 +39,7 @@
           <div class="formula" v-else>
             <div class="formula-item" v-for="item in formulaList" :key="item.label">
               <div class="formula-title">{{item.label}}</div>
-              <div class="formula-item-content" @click="latex =item.latex">
+              <div class="formula-item-content" @click="latex = item.latex">
                 <FormulaContent
                   :width="236"
                   :height="60"
@@ -107,7 +107,7 @@ const symbolTabs = SYMBOL_LIST.map(item => ({
 
 const latex = ref('')
 const toolbarState = ref<'symbol' | 'formula'>('symbol')
-const textAreaRef = ref<TextArea>()
+const textAreaRef = ref<InstanceType<typeof TextArea>>()
 
 const selectedSymbolKey = ref(SYMBOL_LIST[0].type)
 const symbolPool = computed(() => {
@@ -136,7 +136,7 @@ const update = () => {
 
 const insertSymbol = (latex: string) => {
   if (!textAreaRef.value) return
-  textAreaRef.value.$el.focus()
+  textAreaRef.value.focus()
   document.execCommand('insertText', false, latex)
 }
 </script>
